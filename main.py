@@ -1,4 +1,4 @@
-from models import Grid, Position, Cell, State
+from models.Grid import Grid
 
 
 def main():
@@ -6,7 +6,6 @@ def main():
 
 
 if __name__ == "__main__":
-   grid = Grid()
-   grid.start()
-   grid.live()
-
+    grid = Grid()
+    grid.start()
+    grid.live()
