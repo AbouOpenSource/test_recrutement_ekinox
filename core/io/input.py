@@ -19,8 +19,8 @@ FINAL_STEP = "FINAL"
 class Initializer(metaclass=Singleton):
 
     def __init__(self):
-        file_init = open("/home/abou/PycharmProjects/HappyBacteriaLife/data/initiale.txt", "r")
-        file_final = open("/home/abou/PycharmProjects/HappyBacteriaLife/data/final.txt", "r")
+        file_init = open("data/initiale.txt", "r")
+        file_final = open("data/final.txt", "r")
         self.payload = {
             INITIAL_STEP: file_init.readlines(),
             FINAL_STEP: file_final.readlines()
