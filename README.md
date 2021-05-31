@@ -38,7 +38,7 @@ You can also run the project inside a Docker Container. For this purpose the fil
     ├── .gitinore              # File specifies intentionally untracked files that Git should ignore
     ├── Dockerfie              # The declarative file for to build Docker container
     ├── main.py                # The entrypoint of the project
-    ├── README.md              # Source files (alternatively `lib` or `app`)
+    ├── README.md              # Help file of the project
     └── requirements.txt       # This file is used for specifying what python packages are required to run the project
 
 ## Explaining of the algorithm:
