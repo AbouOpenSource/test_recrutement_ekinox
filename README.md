@@ -108,3 +108,7 @@ To launch the test, you have to run the following command from your CLI.
 ```shell script
 pytest
 ```
+
+### CI/CD
+I put a very basic CI/CD workfow in the git repo in order to launch the test 
+trigged by the commit or merge on the master.
