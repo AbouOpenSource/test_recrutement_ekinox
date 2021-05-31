@@ -1,52 +1,65 @@
 import random
 import logging
 
-from models.Cell import Cell
-from models.Position import Position
-from models.State import State
+from core.models.Cell import Cell
+from core.models.Position import Position
+from core.models.State import State
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
 class Grid:
+    """This class contains all the informations about the petri organization.
+        The main part of this class is the adjacency matrix which allows us to represent the
+        neighboring between cells.
+    """
 
     def __init__(self, adjacency_matrix=[], length=5, width=5, number_generations=5):
         self.length = length
         self.width = width
         self.number_generations = number_generations
         self.adjacency_matrix = adjacency_matrix
-        logger.info(self)
-        logger.info(self.adjacency_matrix[2][1])
 
     @classmethod
     def build_from_adjacency_matrix(cls, adjacency_matrix):
         return cls(adjacency_matrix, len(adjacency_matrix[0]), len(adjacency_matrix))
 
-    def start(self):
-        logger.info(" Starting the live of the Grid")
-        for x in range(self.width):
-            self.adjacency_matrix.append([])
-            for y in range(self.length):
+    @classmethod
+    def build_random_grid(cls):
+        width = random.randint(0, 10)
+        length = random.randint(0, 10)
+        logger.info(" Starting the with random data in the Grid having dimension {0} and {1}".format(width, length))
+        adjacency_matrix = []
+        for x in range(width):
+            adjacency_matrix.append([])
+            for y in range(length):
                 position = Position(x, y)
-                self.adjacency_matrix[x].append(Cell(State.RANDOM, position))
-        logger.info(" The initial state of the petri " + str(self))
+                adjacency_matrix[x].append(Cell(State.RANDOM, position))
+        return cls(adjacency_matrix, length, width)
 
     def live(self):
+        logger.info("The intial generation ")
+        logger.info(self)
         for idx in range(self.number_generations):
-            logger.info("The generation :"+str(idx))
+            logger.info("The generation :" + str(idx + 1))
             self.next_state_of_grid()
             logger.info(self)
 
     def next_state_of_grid(self):
+        """:arg
+
+        """
         matrix_number_alive = self.get_matrix_number_neighbour_living()
         for x in range(self.width):
             for y in range(self.length):
                 self.change_state(x, y, matrix_number_alive)
 
     def change_state(self, x, y, matrix):
-        """
-
+        """:param x: the x coordinate of cell to evalute eventual changements
+           :param y: the y coordinate of cell to evalute eventual changements
+           :param :matrix
+           This method will evaluate what cell to kill according to certains condition
         """
         if (self.adjacency_matrix[x][y].is_alive()) and (matrix[x][y] < 2 or matrix[x][y] > 3):
             self.adjacency_matrix[x][y].make_dead()
@@ -58,8 +71,10 @@ class Grid:
             self.adjacency_matrix[x][y].make_alive()
 
     def find_neighborhood(self, x_param, y_param):
-        """ Return the list of the neighbours of the element whose coordinates have been passed in parameter
-
+        """ Return the list of the neighbours of the element
+            whose coordinates have been passed in parameter
+            :param x_param:
+            :param y_param:
         """
         return [(x, y) for x in range(x_param - 1, x_param + 2)
                 for y in range(y_param - 1, y_param + 2)
@@ -73,6 +88,7 @@ class Grid:
         """
            This method return a matrix where item at the position(x,y)
            is a number of neighbours living of the cell at the position(x,y) of the petri.
+           :return a matrix having size self.width and self.length
         """
         matrix_alive = []
         for x in range(self.width):

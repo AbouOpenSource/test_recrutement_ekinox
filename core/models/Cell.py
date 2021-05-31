@@ -1,5 +1,5 @@
-from models import Position
-from models.State import State
+from core.models.Position import Position
+from core.models.State import State
 
 
 class Cell:
