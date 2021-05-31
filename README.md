@@ -112,3 +112,6 @@ pytest
 ### CI/CD
 I put a very basic CI/CD workfow in the git repo in order to launch the test 
 trigged by the commit or merge on the master.
+For that, I used Github Action toolkit.
+The workflow is described in the file located as followed 
+> .github/workflows/python-app.yml
