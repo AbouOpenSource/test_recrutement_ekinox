@@ -9,19 +9,30 @@ class Cell:
         self.id = id(self)
 
     def is_alive(self):
+        """ Check if the cell is alive or not
+            :return Boolean
+        """
         if self.state == State.ALIVE:
             return True
         return False
 
     def make_alive(self):
+        """Make the cell alive
+        """
         self.state = State.ALIVE
 
     def make_dead(self):
+        """Make the cell dead
+        """
         self.state = State.DEAD
 
     def __str__(self):
         return str(self.state)
 
-    #TODO : two cells aren't equals if they have the same state. but if they have the same id. We have to change it
     def __eq__(self, other):
+        """
+        DISCLAIMER I put this one for the unit test.
+        We suppose that if two cells have the same state, they are equals.
+        But in real live, it isn't the case.
+        """
         return self.state == other.state

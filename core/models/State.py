@@ -23,7 +23,6 @@ class State(enum.Enum, metaclass=RANDOM_ATTR):
 
 
 class StateFactory:
-
     @classmethod
     def create(self, indice):
         if indice == '#':

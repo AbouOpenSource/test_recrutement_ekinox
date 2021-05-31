@@ -47,6 +47,25 @@ The petri is modeled like a graph by using the adjacency matrix.
 The choice of the graph approach is explained by the fact that we can apply very simply a lot 
 of algorithm o that such as BFS, DFS in order to find for instance the shortest path.
 
+In order to avoid the conflict of state, we introduced a matrix where we stored the number of the 
+alive neighbors of each cells .
+Once this matrix generated, we use this matrix to update the state of the cells in the grid.
+
+On major axis, the algorithm can be summarised in the folllowing pseudo-code.
+```
+PROGRAM DeadOrAlive:
+  Read grid
+  Read number_generation;
+  LOOP i .. 0 to number_generation
+      neigbhoring_matrix <- get_matrix_number_neighbour_living()
+      LOOP coordinate on each coordinates_of_grid
+        grid[coordinate] <- update_grid(coordinate, neigbhoring_matrix) 
+      ENDLOOP
+  ENDLOOP;
+END.
+```
+
+
 ##### How to activate virtual environment created.
 For Linux
 ```shell script
@@ -65,7 +84,7 @@ Let's check out this [link](https://pep8.org/)
 
 ## Best pratices for develop 
 One of most useful best practices in Python is to use virtual environment.
-
+Let's check out the [link](https://python-guide-pt-br.readthedocs.io/fr/latest/dev/virtualenvs.html) to get more understanding about the virtual environment 
 ##### How create a virtual environment.
 ```shell script
 python3 -m venv {path_where_store_virtual_env}
@@ -77,6 +96,15 @@ Once activated, let's install the requirement file package by running the follow
 pip install -r requirements.txt
 ```
 
+Let's notice we have choosen to use logging system instead of the standard print of python in order to get more plexibility and more extensibility 
+of the project.
 
 
+### Unit Tests part
 
+The unit test are located in the folder test of project.
+To launch the test, you have to run the following command from your CLI.
+
+```shell script
+pytest
+```

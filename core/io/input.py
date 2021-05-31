@@ -4,6 +4,12 @@ from core.models.State import StateFactory
 
 
 class Singleton(type):
+    """:return
+        Singleton helper
+        Having the list of the instances, once we requested for a Singleton ELement, if the
+        element is already instantiated, we will return the previous instance from _instances
+        dictionary
+    """
     _instances = {}
 
     def __call__(cls, *args, **kwargs):

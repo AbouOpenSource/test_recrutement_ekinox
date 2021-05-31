@@ -13,6 +13,7 @@ class Grid:
     """This class contains all the informations about the petri organization.
         The main part of this class is the adjacency matrix which allows us to represent the
         neighboring between cells.
+        A.K.A Petri
     """
 
     def __init__(self, adjacency_matrix=[], length=5, width=5, number_generations=5):
@@ -22,13 +23,21 @@ class Grid:
         self.adjacency_matrix = adjacency_matrix
 
     @classmethod
-    def build_from_adjacency_matrix(cls, adjacency_matrix):
-        return cls(adjacency_matrix, len(adjacency_matrix[0]), len(adjacency_matrix))
+    def build_from_adjacency_matrix(cls, adjacency_matrix, number_generations=5):
+        """
+          :param adjacency_matrix: this is adjacency matrix to represent the neighboring and the state of each cell.
+          :return Grid object
+        """
+        return cls(adjacency_matrix, len(adjacency_matrix[0]), len(adjacency_matrix), number_generations)
 
     @classmethod
-    def build_random_grid(cls):
-        width = random.randint(0, 10)
-        length = random.randint(0, 10)
+    def build_random_grid(cls, number_generations):
+        """
+        :param number_generations: This is a number of the generation to use during the simulation
+        :return Grid Object
+        """
+        width = random.randint(1, 10)
+        length = random.randint(1, 10)
         logger.info(" Starting the with random data in the Grid having dimension {0} and {1}".format(width, length))
         adjacency_matrix = []
         for x in range(width):
@@ -36,9 +45,11 @@ class Grid:
             for y in range(length):
                 position = Position(x, y)
                 adjacency_matrix[x].append(Cell(State.RANDOM, position))
-        return cls(adjacency_matrix, length, width)
+        return cls(adjacency_matrix, length, width, number_generations)
 
     def live(self):
+        """ This procedure will launche the simulation of the grid
+        """
         logger.info("The intial generation ")
         logger.info(self)
         for idx in range(self.number_generations):
@@ -47,8 +58,8 @@ class Grid:
             logger.info(self)
 
     def next_state_of_grid(self):
-        """:arg
-
+        """
+            This method will udpdate the state of each cell in the Grid
         """
         matrix_number_alive = self.get_matrix_number_neighbour_living()
         for x in range(self.width):
