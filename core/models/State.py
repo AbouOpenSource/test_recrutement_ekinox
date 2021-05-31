@@ -21,10 +21,11 @@ class State(enum.Enum, metaclass=RANDOM_ATTR):
     def __eq__(self, other):
         return self.name == other.name or self.value == other.value
 
-class StateBuilder:
+
+class StateFactory:
 
     @classmethod
-    def build_with_indice(self, indice):
+    def create(self, indice):
         if indice == '#':
             return State.ALIVE
         if indice == '.':
